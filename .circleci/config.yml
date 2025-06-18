@@ -1,13 +1,17 @@
-# .circleci/config.yml
 version: 2.1
+
 jobs:
-  build:
-    docker:
-      - image: cimg/base:stable
+  notify:
+    machine:
+      image: ubuntu-2204:current
     steps:
       - checkout
-	      - run: echo "CircleCI 동작 확인"
-	workflows:
-  build-and-test:
+      - run:
+          name: Confirm Push and Display Message
+          command: |
+            echo "📦 변경 사항이 푸시되었습니다. Ansible을 로컬에서 실행하세요."
+
+workflows:
+  deploy-on-push:
     jobs:
-      - build
+      - notify
